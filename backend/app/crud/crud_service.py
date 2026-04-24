@@ -19,6 +19,9 @@ class CRUDService(CRUDBase[Service, ServiceCreate, ServiceUpdate]):
             criticality_tier=obj_in.criticality_tier,
             primary_site=obj_in.primary_site,
             dr_site=obj_in.dr_site,
+            vendor=obj_in.vendor,
+            vendor_readiness=obj_in.vendor_readiness,
+            dr_site_status=obj_in.dr_site_status,
             current_status=obj_in.current_status,
             continuity_posture=obj_in.continuity_posture,
         )

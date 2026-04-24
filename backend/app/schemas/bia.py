@@ -5,7 +5,7 @@ from pydantic import BaseModel
 
 # Shared properties
 class BIABase(BaseModel):
-    rto_target_hours: Optional[int] = None
+    rto_target_hours: Optional[float] = None
     rpo_target_minutes: Optional[int] = None
     financial_impact: Optional[str] = None
     regulatory_impact: Optional[str] = None
@@ -15,7 +15,7 @@ class BIABase(BaseModel):
 
 # Properties to receive on BIA creation
 class BIACreate(BIABase):
-    rto_target_hours: int
+    rto_target_hours: float
     rpo_target_minutes: int
     financial_impact: str
     regulatory_impact: str

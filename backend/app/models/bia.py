@@ -1,4 +1,4 @@
-from sqlalchemy import Column, ForeignKey, Integer, String
+from sqlalchemy import Column, Float, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
 
 from app.db.base_class import Base
@@ -10,7 +10,7 @@ class BIA(Base):
     id = Column(Integer, primary_key=True, index=True)
     service_id = Column(Integer, ForeignKey("services.id"), nullable=False, unique=True)
 
-    rto_target_hours = Column(Integer, nullable=False)
+    rto_target_hours = Column(Float, nullable=False)
     rpo_target_minutes = Column(Integer, nullable=False)
 
     financial_impact = Column(String, nullable=False)

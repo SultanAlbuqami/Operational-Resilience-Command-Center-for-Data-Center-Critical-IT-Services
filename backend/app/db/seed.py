@@ -18,17 +18,9 @@ def seed_data():
         Base.metadata.create_all(bind=engine)
 
         logger.info("Seeding data...")
-
-        # 1. Create Services and BIAs
         services_map = _seed_services_and_bia(db)
-
-        # 2. Create Dependencies
         _seed_dependencies(db, services_map)
-
-        # 3. Create Runbook Tasks
         _seed_runbooks(db, services_map)
-
-        # 4. Create DR Exercises
         _seed_dr_exercises(db, services_map)
 
         logger.info("Data seeding completed successfully!")
@@ -47,6 +39,9 @@ def _seed_services_and_bia(db: Session):
             "criticality_tier": 1,
             "primary_site": "us-east-1",
             "dr_site": "us-west-1",
+            "vendor": "Okta",
+            "vendor_readiness": "High",
+            "dr_site_status": "Ready",
             "continuity_posture": "Healthy",
             "bia": {
                 "rto_target_hours": 1,
@@ -63,6 +58,9 @@ def _seed_services_and_bia(db: Session):
             "criticality_tier": 1,
             "primary_site": "us-east-1",
             "dr_site": "us-west-1",
+            "vendor": "Stripe",
+            "vendor_readiness": "High",
+            "dr_site_status": "Ready",
             "continuity_posture": "Healthy",
             "bia": {
                 "rto_target_hours": 4,
@@ -79,6 +77,9 @@ def _seed_services_and_bia(db: Session):
             "criticality_tier": 2,
             "primary_site": "us-east-1",
             "dr_site": "us-west-1",
+            "vendor": "Salesforce",
+            "vendor_readiness": "High",
+            "dr_site_status": "Ready",
             "continuity_posture": "At Risk",
             "bia": {
                 "rto_target_hours": 8,
@@ -95,6 +96,9 @@ def _seed_services_and_bia(db: Session):
             "criticality_tier": 1,
             "primary_site": "us-east-1",
             "dr_site": "us-west-1",
+            "vendor": "AWS",
+            "vendor_readiness": "High",
+            "dr_site_status": "Ready",
             "continuity_posture": "Healthy",
             "bia": {
                 "rto_target_hours": 2,
@@ -105,12 +109,34 @@ def _seed_services_and_bia(db: Session):
                 "key_business_process_supported": "Public Web Presence",
             },
         },
+        "Network Monitoring Platform": {
+            "owner": "NOC",
+            "business_unit": "Technology",
+            "criticality_tier": 1,
+            "primary_site": "Global",
+            "dr_site": "Global",
+            "vendor": "Datadog",
+            "vendor_readiness": "Medium",
+            "dr_site_status": "Ready",
+            "continuity_posture": "Healthy",
+            "bia": {
+                "rto_target_hours": 0.5,
+                "rpo_target_minutes": 5,
+                "financial_impact": "Low",
+                "regulatory_impact": "N/A",
+                "reputational_impact": "Low",
+                "key_business_process_supported": "Infrastructure Visibility",
+            },
+        },
         "Enterprise Backup Platform": {
             "owner": "IT Operations",
             "business_unit": "Technology",
             "criticality_tier": 2,
             "primary_site": "us-east-1",
             "dr_site": "us-west-1",
+            "vendor": "Veeam",
+            "vendor_readiness": "High",
+            "dr_site_status": "Degraded",
             "continuity_posture": "Degraded",
             "bia": {
                 "rto_target_hours": 24,
@@ -127,6 +153,9 @@ def _seed_services_and_bia(db: Session):
             "criticality_tier": 1,
             "primary_site": "us-east-1",
             "dr_site": "us-west-1",
+            "vendor": "VMware",
+            "vendor_readiness": "High",
+            "dr_site_status": "Ready",
             "continuity_posture": "Healthy",
             "bia": {
                 "rto_target_hours": 4,
@@ -143,7 +172,10 @@ def _seed_services_and_bia(db: Session):
             "criticality_tier": 1,
             "primary_site": "us-east-1",
             "dr_site": "us-west-1",
-            "continuity_posture": "Healthy",
+            "vendor": "NetApp",
+            "vendor_readiness": "Low",
+            "dr_site_status": "Offline",
+            "continuity_posture": "At Risk",
             "bia": {
                 "rto_target_hours": 4,
                 "rpo_target_minutes": 0,
@@ -153,12 +185,34 @@ def _seed_services_and_bia(db: Session):
                 "key_business_process_supported": "Data Storage Foundation",
             },
         },
+        "DR Replication Service": {
+            "owner": "Storage Team",
+            "business_unit": "Technology",
+            "criticality_tier": 1,
+            "primary_site": "us-east-1",
+            "dr_site": "us-west-1",
+            "vendor": "Zerto",
+            "vendor_readiness": "Medium",
+            "dr_site_status": "Ready",
+            "continuity_posture": "Healthy",
+            "bia": {
+                "rto_target_hours": 2,
+                "rpo_target_minutes": 5,
+                "financial_impact": "Medium",
+                "regulatory_impact": "High",
+                "reputational_impact": "Medium",
+                "key_business_process_supported": "Data Replication",
+            },
+        },
         "Core DNS Service": {
             "owner": "Network Team",
             "business_unit": "Technology",
             "criticality_tier": 1,
             "primary_site": "Global",
             "dr_site": "Global",
+            "vendor": "Cloudflare",
+            "vendor_readiness": "High",
+            "dr_site_status": "Ready",
             "continuity_posture": "Healthy",
             "bia": {
                 "rto_target_hours": 1,
@@ -167,6 +221,25 @@ def _seed_services_and_bia(db: Session):
                 "regulatory_impact": "N/A",
                 "reputational_impact": "High",
                 "key_business_process_supported": "Service Discovery",
+            },
+        },
+        "Facilities Power and Cooling": {
+            "owner": "Facilities",
+            "business_unit": "Real Estate",
+            "criticality_tier": 1,
+            "primary_site": "us-east-1",
+            "dr_site": "N/A",
+            "vendor": "Schneider Electric",
+            "vendor_readiness": "High",
+            "dr_site_status": "N/A",
+            "continuity_posture": "Healthy",
+            "bia": {
+                "rto_target_hours": 1,
+                "rpo_target_minutes": 0,
+                "financial_impact": "Very High",
+                "regulatory_impact": "Medium",
+                "reputational_impact": "High",
+                "key_business_process_supported": "Data Center Environment",
             },
         },
     }
@@ -191,9 +264,11 @@ def _seed_services_and_bia(db: Session):
 def _seed_dependencies(db: Session, services: dict):
     dependencies_to_create = [
         ("Customer Digital Channels", "Customer Identity Platform"),
+        ("Customer Digital Channels", "Core DNS Service"),
         ("Customer Digital Channels", "CRM Platform"),
         ("Billing Core", "CRM Platform"),
         ("Billing Core", "Customer Identity Platform"),
+        ("Billing Core", "Virtualization Cluster A"),
         ("CRM Platform", "Customer Identity Platform"),
         ("CRM Platform", "Storage Array X"),
         ("CRM Platform", "Virtualization Cluster A"),
@@ -201,6 +276,14 @@ def _seed_dependencies(db: Session, services: dict):
         ("Customer Identity Platform", "Storage Array X"),
         ("Customer Identity Platform", "Virtualization Cluster A"),
         ("Virtualization Cluster A", "Storage Array X"),
+        ("Virtualization Cluster A", "Facilities Power and Cooling"),
+        ("Storage Array X", "Facilities Power and Cooling"),
+        ("Network Monitoring Platform", "Core DNS Service"),
+        ("Network Monitoring Platform", "Virtualization Cluster A"),
+        ("Enterprise Backup Platform", "Storage Array X"),
+        ("Enterprise Backup Platform", "Virtualization Cluster A"),
+        ("DR Replication Service", "Storage Array X"),
+        ("DR Replication Service", "Virtualization Cluster A"),
     ]
 
     for dependant, dependency_service in dependencies_to_create:
@@ -262,6 +345,26 @@ def _seed_runbooks(db: Session, services: dict):
                 "eta_minutes": 30,
             },
         ],
+        "Storage Array X": [
+            {
+                "step_number": 1,
+                "task_description": "Assess physical damage to arrays",
+                "owner": "Storage Team",
+                "eta_minutes": 30,
+            },
+            {
+                "step_number": 2,
+                "task_description": "Activate Zerto replication failover",
+                "owner": "Storage Team",
+                "eta_minutes": 45,
+            },
+            {
+                "step_number": 3,
+                "task_description": "Verify LUN visibility in DR",
+                "owner": "Storage Team",
+                "eta_minutes": 15,
+            },
+        ],
     }
 
     count = 0
@@ -303,14 +406,27 @@ def _seed_dr_exercises(db: Session, services: dict):
             "passed": False,
             "issues_observed": "Dependency mapping for CRM Platform was inaccurate, leading to incorrect recovery sequence. Runbook for storage failover was outdated.",
             "lessons_learned": "Live dependency data and runbook validation are critical.",
-            "corrective_actions": "Update CRM dependencies in Command Center. "
-            "Revise storage runbook.",
+            "corrective_actions": "Update CRM dependencies in Command Center. Revise storage runbook.",
             "owner": "IT Operations",
             "services": [
                 services["CRM Platform"],
                 services["Customer Identity Platform"],
                 services["Billing Core"],
             ],
+        },
+        {
+            "name": "Ransomware Tabletop - Identity",
+            "scenario": "Okta sync compromised",
+            "target_rto_minutes": 60,
+            "target_rpo_minutes": 5,
+            "actual_rto_minutes": 45,
+            "actual_rpo_minutes": 5,
+            "passed": True,
+            "issues_observed": "None, runbook worked as expected.",
+            "lessons_learned": "Regular review of vendor readiness is helpful.",
+            "corrective_actions": "None.",
+            "owner": "Identity Team",
+            "services": [services["Customer Identity Platform"]],
         },
     ]
 

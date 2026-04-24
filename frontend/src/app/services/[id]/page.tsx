@@ -4,7 +4,7 @@ import { Service } from '../../lib/types';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 
-const InfoCard = ({ title, children }) => (
+const InfoCard = ({ title, children }: { title: string, children: React.ReactNode }) => (
     <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
         <h3 className="text-xl font-bold mb-4 text-gray-300">{title}</h3>
         {children}

@@ -50,3 +50,15 @@ def read_incident(*, db: Session = Depends(deps.get_db), id: int) -> Any:
     if not incident:
         raise HTTPException(status_code=404, detail="Incident not found")
     return incident
+
+
+@router.get("/{id}/executive-brief", response_model=schemas.ExecutiveBrief)
+def get_executive_brief(*, db: Session = Depends(deps.get_db), id: int) -> Any:
+    """
+    Get an executive brief for a specific incident.
+    """
+    incident = crud.incident.get(db=db, id=id)
+    if not incident:
+        raise HTTPException(status_code=404, detail="Incident not found")
+
+    return incident_service.generate_executive_brief(incident)

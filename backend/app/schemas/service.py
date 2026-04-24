@@ -17,6 +17,9 @@ class ServiceBase(BaseModel):
     criticality_tier: int
     primary_site: str
     dr_site: str
+    vendor: Optional[str] = None
+    vendor_readiness: Optional[str] = "High"
+    dr_site_status: Optional[str] = "Ready"
     current_status: Optional[str] = "Operational"
     continuity_posture: Optional[str] = "Healthy"
 
@@ -34,6 +37,9 @@ class ServiceUpdate(BaseModel):
     criticality_tier: Optional[int] = None
     primary_site: Optional[str] = None
     dr_site: Optional[str] = None
+    vendor: Optional[str] = None
+    vendor_readiness: Optional[str] = None
+    dr_site_status: Optional[str] = None
     current_status: Optional[str] = None
     continuity_posture: Optional[str] = None
     bia: Optional[BIA] = None

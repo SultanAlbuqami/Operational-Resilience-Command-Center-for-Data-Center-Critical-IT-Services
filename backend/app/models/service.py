@@ -34,6 +34,10 @@ class Service(Base):
     primary_site = Column(String, nullable=False)
     dr_site = Column(String, nullable=False)
 
+    vendor = Column(String, nullable=True)
+    vendor_readiness = Column(String, default="High", nullable=False)
+    dr_site_status = Column(String, default="Ready", nullable=False)
+
     current_status = Column(String, default="Operational", nullable=False)
     continuity_posture = Column(String, default="Healthy", nullable=False)
 

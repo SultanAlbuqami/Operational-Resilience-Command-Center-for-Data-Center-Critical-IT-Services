@@ -47,3 +47,13 @@ class Incident(IncidentInDBBase):
 # Properties stored in DB
 class IncidentInDB(IncidentInDBBase):
     pass
+
+
+class ExecutiveBrief(BaseModel):
+    incident_summary: str
+    affected_services: List[str]
+    top_business_impacts: List[str]
+    recovery_recommendation: str
+    estimated_restoration_timeline: str
+    top_risks: List[str]
+    escalation_recommendation: str

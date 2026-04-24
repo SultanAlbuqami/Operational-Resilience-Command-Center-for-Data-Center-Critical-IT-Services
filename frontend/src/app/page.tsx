@@ -5,7 +5,7 @@ import { Server, ShieldCheck, ShieldOff, AlertTriangle, CheckCircle } from 'luci
 import RTOBreaches from './components/rto-breaches';
 
 // Stat Card Component
-const StatCard = ({ title, value, icon: Icon, color = 'text-white' }) => (
+const StatCard = ({ title, value, icon: Icon, color = 'text-white' }: { title: string, value: string | number, icon: any, color?: string }) => (
     <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
         <div className="flex items-center">
             <div className={`p-3 rounded-full bg-gray-700 ${color}`}>
